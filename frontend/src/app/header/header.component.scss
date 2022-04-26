@@ -1,0 +1,21 @@
+@import"./utils/mixin";
+
+header {
+    display: flex;
+    text-align: center;
+    background-color: #fff;
+    margin-bottom: 20px;
+    padding: 0;
+    border: 2px solid #eee;
+    height: 120px;
+    p {
+        margin: auto;
+    }
+    img {
+        margin: auto;
+        height: 120px;
+        @include mobile-only {
+            height: 70px;
+        }
+    }
+}
