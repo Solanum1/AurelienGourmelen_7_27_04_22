@@ -10,6 +10,9 @@ require("dotenv").config();
 
 //----------------------Importation des routes--------------------
 
+//----------------------Connexion à mySQL-------------------------
+const dbConnection = require("./db/db");
+
 //----------------------Middleware CORS --------------------------
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
