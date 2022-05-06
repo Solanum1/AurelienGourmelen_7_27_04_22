@@ -2,15 +2,26 @@
 //express
 const express = require("express");
 const app = express();
+
 //helmet
 const helmet = require("helmet");
 app.use(helmet());
+
 //dotenv
 require("dotenv").config();
 
 //----------------------Importation des routes--------------------
 
-//----------------------Connexion à mySQL-------------------------
+const usersRoutes = require("./routes/userRoute");
+
+//Vérif réponse du serveur
+// app.use((req, res, next) => {
+//     res.status(201);
+//     res.json({ message: "Votre requête a bien été reçue !" });
+//     next();
+// });
+
+app.use(express.json());
 
 //----------------------Middleware CORS --------------------------
 app.use((req, res, next) => {
@@ -26,6 +37,9 @@ app.use((req, res, next) => {
     next();
 });
 //----------------------Enregistrement des routes---------------
+
+//route attendue par le front
+app.use("/api/auth", usersRoutes);
 
 //----------------------Exports---------------------------------
 module.exports = app;
