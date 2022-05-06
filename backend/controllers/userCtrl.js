@@ -2,6 +2,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const models = require("../models/");
+const dotenv = require("dotenv").config();
 
 //----------------Logique métier--------------------------------
 
@@ -41,7 +42,13 @@ exports.login = (req, res, next) => {
                     userId: user.id,
                     username: user.username,
                     isAdmin: user.isAdmin,
-                    token: "TOKEN",
+                    token: jwt.sign(
+                        {
+                            userId: user.id,
+                        },
+                        process.env.JWT_TOKEN,
+                        { expiresIn: "24h" }
+                    ),
                 });
             });
         })
