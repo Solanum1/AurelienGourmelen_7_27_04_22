@@ -14,6 +14,8 @@ const router = express.Router();
 //import du controller userCtrl
 const userCtrl = require("../controllers/userCtrl");
 
+const auth = require("../middleware/auth");
+
 //--------------------------Routes--------------------------------
 //Route POST pour enregistrement d'un nouvel utilisateur
 //router.post("/signup", email, password, userCtrl.signup);
@@ -23,13 +25,13 @@ router.post("/signup", userCtrl.signup);
 router.post("/login", userCtrl.login);
 
 //Route GET pour obtenir les informations du profil
-router.get("/profile/:id", userCtrl.getUser);
+router.get("/profile/:id", auth, userCtrl.getUser);
 
 //Route PUT pour mettre les informations du profil
-router.put("/profile/:id", userCtrl.updateUser);
+router.put("/profile/:id", auth, userCtrl.updateUser);
 
 //Route DELETE pour obtenir les informations du profil
-router.delete("/profile/:id", userCtrl.deleteUser);
+router.delete("/profile/:id", auth, userCtrl.deleteUser);
 
 //--------------------------Exportation---------------------------
 //On exporte le router de ce fichier
