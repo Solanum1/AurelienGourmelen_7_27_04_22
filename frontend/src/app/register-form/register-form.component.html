@@ -3,7 +3,13 @@
     <h3><strong>Inscrivez</strong>-vous</h3>
     <div class="form-group">
       <label for="usernameInput">Nom d'utilisateur :</label>
-      <input type="text" id="usernameInput" required />
+      <input
+        type="text"
+        id="usernameInput"
+        [(ngModel)]="username"
+        [ngModelOptions]="{ standalone: true }"
+        required
+      />
     </div>
     <div class="form-group">
       <label for="emailInput">Email :</label>
@@ -14,7 +20,10 @@
       <input name="passwordInput" type="password" id="passwordInput" required />
     </div>
     <div class="form-group">
-      <button type="submit" class="button-sub">S'enregistrer</button>
+      <button type="submit" class="button-sub" (click)="test()">
+        S'enregistrer
+      </button>
     </div>
   </form>
+  {{ username }}
 </div>
