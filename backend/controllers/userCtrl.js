@@ -35,6 +35,8 @@ exports.signup = (req, res, next) => {
             res.status(500).json({ error: error.message });
         });
 };
+
+//Fonction de login
 exports.login = (req, res, next) => {
     models.User.findOne({
         email: req.body.email,
