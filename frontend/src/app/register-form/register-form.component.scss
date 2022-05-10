@@ -1,0 +1,87 @@
+.register-container{
+    display: flex;
+    justify-content: center;
+    height: auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 3px;
+}
+.form-bloc h3{
+    color: #666;
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 45px;
+    text-align: left;
+}
+
+.form-bloc h3 strong {
+    color: #fd2d01;
+    font-weight: 900;
+}
+
+
+
+.form-bloc .form-group {
+    position: relative;
+    display: flex;
+    margin-bottom: 40px;
+}
+
+.form-bloc .form-group label {
+    position: absolute;
+    //top: 50%;
+    left: 0px;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 20px;
+    transition: 0.4s ease-out;
+}
+
+.form-bloc .form-group input {
+    display: block;
+    width: 100%;
+    padding: 10px 0px;
+    border: none;
+    outline: none;
+    background: none;
+    border-bottom: 3px solid #aaa;
+    color: #666;
+    font-size: 20px;
+    transition: 0.4s ease-out;
+}
+
+.form-group:nth-child(4) {
+    margin-bottom: 65px;
+    justify-content: center;
+}
+
+.form-bloc .form-group .button-sub {
+    display: block;
+    width: auto;
+    padding: 15px 60px;
+    border: 2px solid #fd2d01;
+    border-radius: 999px;
+    //background-image: linear-gradient(to left, transparent 50%, #fd2d01 50%, #ffd7d7);
+    background-size: 200%;
+    color: #fd2d01;
+    font-size: 24px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.form-bloc .form-group .button-sub:hover {
+    color: #fff;
+    background-position: 100%;
+    border: 2px solid #fff;
+}
+
+.form-bloc .form-group:focus-within label,
+.form-bloc .form-group.animation label {
+    top: 0px;
+    transform: translateY(-100%);
+    color: #fd2d01;
+}
+.form-bloc .form-group:focus-within input,
+.form-bloc .form-group.animation input {
+    border-bottom-color: #fd2d01;
+}   
