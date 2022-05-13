@@ -6,18 +6,22 @@ import { AppRoutingModule } from './app-routing-module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    RegisterFormComponent
+    RegisterFormComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule, 
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
