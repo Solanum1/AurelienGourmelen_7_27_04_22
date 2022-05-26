@@ -8,7 +8,8 @@ import { HeaderComponent } from './header/header.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { HttpClientModule } from '@angular/common/http';
-
+//import { HttpInterceptorProviders } from './interceptors';
+import { JwtModule } from "@auth0/angular-jwt";
 
 @NgModule({
   declarations: [
@@ -21,9 +22,20 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     FormsModule, 
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => {
+          return localStorage.getItem("access_token");
+        },
+        allowedDomains: ["localhost:3000"],
+        disallowedRoutes: ["http://localhost:3000/api/auth"],
+      },
+    }),
   ],
-  providers: [],
+  providers: [
+    //HttpInterceptorProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
