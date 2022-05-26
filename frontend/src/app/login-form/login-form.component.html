@@ -10,7 +10,7 @@
       <input
         type="email"
         id="emailInput"
-        [(ngModel)]="userEmail"
+        [(ngModel)]="userForm.email"
         name="userEmail"
         required
       />
@@ -20,13 +20,15 @@
       <input
         type="password"
         id="passwordInput"
-        [(ngModel)]="userPassword"
+        [(ngModel)]="userForm.password"
         name="userPassword"
         required
       />
     </div>
     <div class="form-group">
-      <button type="submit" class="button-sub">Se connecter</button>
+      <button type="submit" class="button-sub" (click)="onLogin()">
+        Se connecter
+      </button>
     </div>
     <div class="form-group">
       <p>Pas encore inscrit ? <a routerLink="register">Inscrivez-vous</a></p>

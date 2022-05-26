@@ -38,6 +38,7 @@ exports.signup = (req, res, next) => {
 
 //Fonction de login
 exports.login = (req, res, next) => {
+    console.log(req.body);
     models.User.findOne({
         email: req.body.email,
     })
