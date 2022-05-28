@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
 
@@ -10,18 +10,25 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { HttpClientModule } from '@angular/common/http';
 //import { HttpInterceptorProviders } from './interceptors';
 import { JwtModule } from "@auth0/angular-jwt";
+import { HomeComponent } from './home/home.component';
+import { NewPostComponent } from './new-post/new-post.component';
+import { AllPostsComponent } from './all-posts/all-posts.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     RegisterFormComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    HomeComponent,
+    NewPostComponent,
+    AllPostsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, 
+    ReactiveFormsModule,
     HttpClientModule,
     JwtModule.forRoot({
       config: {

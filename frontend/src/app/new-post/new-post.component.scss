@@ -1,0 +1,57 @@
+.form-card, .message-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 40%;
+    margin: 20px auto;
+    padding: 10px 30px;
+    box-shadow: lightgray 4px 4px 20px;
+}
+
+.message-card {
+    img {
+        width: 100%;
+    }
+    h2 {
+        margin-bottom: 0;
+    }
+    p {
+        font-weight: 300;
+        font-size: 16px;
+    }
+}
+
+.form-card h2 {
+    text-align: center;
+    font-size: 3vmin;
+}
+
+.form-card label {
+    font-size: 2vmin;
+}
+
+.form-group {
+    margin-top: 10px ;
+    margin-bottom: 10px ;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.form-button{
+    justify-content: center;
+}
+
+input, textarea {
+    width: 75%;
+}
+
+button {
+    padding: 10px 10vmin;
+    border: 1px solid #fd2d01;
+    background-color: #fff;
+    color: #fd2d01;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+}

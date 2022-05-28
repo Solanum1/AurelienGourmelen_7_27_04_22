@@ -38,7 +38,7 @@ export class LoginFormComponent implements OnInit {
       .subscribe(
         {
           next: (token) => {
-            this.router.navigate(['/list'], {queryParams: {loggedin: 'success'} });
+            this.router.navigate(['/home'], {queryParams: {loggedin: 'success'} });
           },
           error: (errorResponse) => {
             this.errors.push(errorResponse);
