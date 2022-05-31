@@ -1,0 +1,34 @@
+.message-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 40%;
+    margin: 20px auto;
+    padding: 10px 30px;
+    box-shadow: lightgray 4px 4px 20px;
+}
+
+.message-card {
+    img {
+        width: 100%;
+    }
+    h2 {
+        margin-bottom: 0;
+    }
+    p {
+        font-weight: 300;
+        font-size: 16px;
+    }
+}
+
+.likes {
+    display: flex;
+    justify-content: right;
+    margin-right: 20px;
+    p {
+        font-size: x-large;
+    }
+    button {
+        padding: 5px;
+    }
+}
