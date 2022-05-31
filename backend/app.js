@@ -10,16 +10,13 @@ app.use(helmet());
 //dotenv
 require("dotenv").config();
 
+//Accéder au path du serveur
+const path = require("path");
+
 //----------------------Importation des routes--------------------
 
 const usersRoutes = require("./routes/userRoute");
-
-//Vérif réponse du serveur
-// app.use((req, res, next) => {
-//     res.status(201);
-//     res.json({ message: "Votre requête a bien été reçue !" });
-//     next();
-// });
+const postsRoutes = require("./routes/postRoute");
 
 app.use(express.json());
 
@@ -39,8 +36,14 @@ app.use((req, res, next) => {
 });
 //----------------------Enregistrement des routes---------------
 
-//route attendue par le front
+//gestion de la ressource image de manière statique à chaque requête vers la route /images
+app.use("/images", express.static(path.join(__dirname, "images")));
+
+//route attendue par le front pour l'enregistrement et la connexion utilisateur
 app.use("/api/auth", usersRoutes);
+
+//route pour la création, la modification et la suppression des posts (messages)
+app.use("api/posts", postsRoutes);
 
 //----------------------Exports---------------------------------
 module.exports = app;
