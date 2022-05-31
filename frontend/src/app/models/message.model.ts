@@ -1,9 +1,13 @@
-export class Message {
-    id!: number;
-    idUser!: number;
+export class MessageModel {
     title!: string;
     content!: string;
     attachment!: string;
-    createdDate!: Date;
     likes!: number;
+
+    constructor(title: string, content: string, attachment: string,  likes: number) {
+        this.title = title;
+        this.content = content;
+        this.attachment = attachment;
+        this.likes = likes;
+    }
 }

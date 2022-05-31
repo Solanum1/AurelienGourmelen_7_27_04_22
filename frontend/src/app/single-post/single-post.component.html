@@ -1,0 +1,11 @@
+<div class="message-card">
+  <h2>{{ message.title }}</h2>
+  <p>{{ message.content }}</p>
+  <img [src]="message.attachment" [alt]="message.title" />
+  <div class="likes">
+    <p>
+      <button (click)="onLike()">{{ buttonText }}</button>
+      {{ message.likes }}
+    </p>
+  </div>
+</div>

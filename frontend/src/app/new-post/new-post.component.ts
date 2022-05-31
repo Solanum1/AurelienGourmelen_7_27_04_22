@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Message } from '../models/message.model';
+import { Message } from '../models/newMessage.model';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
@@ -34,16 +34,15 @@ export class NewPostComponent implements OnInit {
     this.messageForm = this.formBuilder.group({
       title: [null],
       content: [null],
-      attachment: [null]
+      attachment: [null],
+      likes: [null]
     });
 
     //Initialisation du 
     this.messagePreview$ = this.messageForm.valueChanges.pipe(
       map(formValue => ({
         ...formValue,
-        createdDate: new Date()
-        //id: 0,
-        //likes: 0
+        likes: 0
       }))
     );
   }
