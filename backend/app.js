@@ -43,7 +43,7 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/api/auth", usersRoutes);
 
 //route pour la création, la modification et la suppression des posts (messages)
-app.use("api/posts", postsRoutes);
+app.use("/api/posts", postsRoutes);
 
 //----------------------Exports---------------------------------
 module.exports = app;

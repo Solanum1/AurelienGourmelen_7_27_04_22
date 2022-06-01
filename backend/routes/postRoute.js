@@ -17,13 +17,13 @@ const postCtrl = require("../controllers/postCtrl");
 //--------------------------Routes--------------------------------
 
 //Route POST pour créer un message
-router.post("/create", postCtrl.createPost);
+router.post("/create", auth, multer, postCtrl.createPost);
 
 //Route GET pour obtenir tous les messages
 router.get("/", auth, postCtrl.getAllPosts);
 
 //Route GET pour obtenir un message
-router.get("/:id", postCtrl.getOnePost);
+router.get("/:id", auth, postCtrl.getOnePost);
 
 //Route PUT pour modifier un message
 router.put("/update/:id", auth, postCtrl.updatePost);

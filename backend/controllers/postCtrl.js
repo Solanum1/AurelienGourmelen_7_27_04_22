@@ -7,7 +7,7 @@ const fs = require("fs");
 //Post d'un message
 exports.createPost = (req, res) => {
     models.User.findOne({
-        where: { id: req.UserId },
+        where: { id: req.body.UserId },
     })
         .then((user) => {
             if (user !== null) {
