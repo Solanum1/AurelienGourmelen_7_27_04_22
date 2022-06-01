@@ -35,8 +35,9 @@ import { SinglePostComponent } from './single-post/single-post.component';
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
-          return localStorage.getItem("access_token");
+          return localStorage.getItem("auth_tkn");
         },
+        throwNoTokenError: true,
         allowedDomains: ["localhost:3000"],
         disallowedRoutes: ["http://localhost:3000/api/auth"],
       },
