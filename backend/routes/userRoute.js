@@ -6,10 +6,10 @@ const express = require("express");
 const router = express.Router();
 
 //Middleware qui contrôle la validité de l'adresse email à l'enregistrement
-//const email = require("../middleware/email");
+const email = require("../middleware/email");
 
 //Middleware qui contrôle le mot de passe utilisateur à l'enregistrement
-//const password = require("../middleware/password");
+const password = require("../middleware/password");
 
 //import du controller userCtrl
 const userCtrl = require("../controllers/userCtrl");
@@ -19,7 +19,7 @@ const auth = require("../middleware/auth");
 //--------------------------Routes--------------------------------
 //Route POST pour enregistrement d'un nouvel utilisateur
 //router.post("/signup", email, password, userCtrl.signup);
-router.post("/signup", userCtrl.signup);
+router.post("/signup", email, password, userCtrl.signup);
 
 //Route POST pour la connexion d'un utilisateur
 router.post("/login", userCtrl.login);
