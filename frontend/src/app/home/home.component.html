@@ -1,6 +1,10 @@
 <app-new-post></app-new-post>
-<app-single-post
+<!-- <app-single-post
   *ngFor="let oneMessage of myMessage"
+  [message]="oneMessage"
+></app-single-post> -->
+<app-single-post
+  *ngFor="let oneMessage of allMessage$ | async"
   [message]="oneMessage"
 ></app-single-post>
 <!-- <app-all-posts></app-all-posts> -->

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { MessageModel } from '../models/message.model';
+import { Message } from '../models/newMessage.model';
 import { MessagesService } from'../services/messages.service';
 
 
@@ -10,23 +12,21 @@ import { MessagesService } from'../services/messages.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  
+  //myMessage!: MessageModel[];
 
-  constructor( private msg: MessagesService) { 
+  //nouvelle implémentation pour récupérer les messages
+  allMessage$!: Observable<Message[]>
+  //----
 
-  }
-
-  myMessage!: MessageModel[];
+  constructor( private messagesService: MessagesService) {}
 
   ngOnInit(): void {
-    // this.myMessage = new MessageModel(
-    //   'Test - codé en dur',
-    //   'Mon premier message ici',
-    //   'https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Three_Rock_Mountain_Southern_Tor.jpg/2880px-Three_Rock_Mountain_Southern_Tor.jpg',
-    //   0
-    // );
-    this.msg.getAllMessages().subscribe( (message) => {
-      this.myMessage = message;
-    } );
+    // this.messagesService.getAllMessages().subscribe( (message) => {
+    //   this.myMessage = message;
+    // } );
+    this.allMessage$ = this.messagesService.getAllMessages();
   }
+
 
 }
