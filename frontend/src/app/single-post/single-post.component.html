@@ -1,11 +1,11 @@
-<div class="message-card">
+<div class="message-card" *ngIf="oneMessage$ | async as message">
   <h2>{{ message.title }}</h2>
   <p>{{ message.content }}</p>
   <img [src]="message.attachment" [alt]="message.title" />
   <div class="likes">
     <p>
-      <button (click)="onLike()">{{ buttonText }}</button>
-      {{ message.likes }}
+      <button (click)="onLike(message.id)">{{ buttonText }}</button>
+      👍 {{ message.likes }}
     </p>
   </div>
 </div>
