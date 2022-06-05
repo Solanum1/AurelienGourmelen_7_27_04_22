@@ -70,12 +70,55 @@ exports.login = (req, res, next) => {
         })
         .catch((error) => res.status(500).json({ error }));
 };
+
+//Fonction pour obtenir les données d'un utilisateur avec son id
 exports.getUser = (req, res, next) => {
-    //TO DO
+    models.User.findOne({
+        attributes: ["id", "email", "username", "isAdmin"],
+        where: { id: req.params.id },
+    })
+        .then((user) => {
+            if (user) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json({ error: "Utilisateur non trouvé" });
+            }
+        })
+        .catch((error) => res.status(500).json({ error }));
 };
-exports.updateUser = (req, res, next) => {
-    //TO DO
+
+//Fonction de mise à jour utilisateur
+exports.updateUser = (req, res) => {
+    const userId = req.params.id;
+
+    bcrypt.hash(req.body.password, 10).then((hash) => {
+        const updatedUser = {
+            username: req.body.username,
+            email: req.body.email,
+            password: hash,
+        };
+        models.User.update(updatedUser, { where: { id: userId } })
+            .then(() =>
+                res
+                    .status(200)
+                    .json({ message: "Utilisateur modifié avec succès" })
+            )
+            .catch((error) =>
+                res.status(400).json({
+                    message: "Impossible de modifier cet utilisateur",
+                    error,
+                })
+            );
+    });
 };
+
+//Fonction de suppression utilisateur
 exports.deleteUser = (req, res, next) => {
-    //TO DO
+    models.User.findOne({ where: { id: req.params.id } })
+        .then(() => {
+            models.User.destroy({ where: { id: req.params.id } })
+                .then(res.status(200).json({ message: "Utilisateur supprimé" }))
+                .catch((error) => res.status(400).json({ error }));
+        })
+        .catch((error) => res.status(500).json({ error }));
 };
