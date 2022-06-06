@@ -4,7 +4,7 @@ const fs = require("fs");
 
 //----------------Logique métier--------------------------------
 
-//Post d'un message
+//Fonction de création d'un message
 exports.createPost = (req, res) => {
     models.User.findOne({
         where: { id: req.body.UserId },
@@ -31,19 +31,18 @@ exports.createPost = (req, res) => {
                         UserId: user.id,
                         likes: 0,
                     })
-                        .then((newMsg) => {
-                            res.status(201).json(newMsg);
+                        .then((newMessage) => {
+                            res.status(201).json(newMessage);
                         })
-                        .catch((err) => {
-                            res.status(500).json(err);
+                        .catch(() => {
+                            res.status(500).json({ error });
                         });
                 }
             } else {
-                res.status(400).json();
+                res.status(400).json({ error });
             }
         })
         .catch((error) => {
-            console.log(error);
             res.status(500).json({ error: "erreur serveur" });
         });
 };
@@ -57,13 +56,22 @@ exports.getOnePost = (req, res) => {
                 model: models.User,
                 attributes: ["id", "username"],
             },
+            {
+                model: models.Comments,
+                attributes: ["id", "content", "createdAt"],
+                include: [
+                    {
+                        model: models.User,
+                        attributes: ["id", "username"],
+                    },
+                ],
+            },
         ],
+        order: [["createdAt", "DESC"]],
     })
         .then((message) => {
             if (!message) {
-                return res
-                    .status(400)
-                    .json({ error: "Message non disponible !" });
+                return res.status(400).json({ error: "Message non trouvé" });
             }
             res.status(200).json(message);
         })
@@ -79,6 +87,16 @@ exports.getAllPosts = (req, res) => {
             {
                 model: models.User,
                 attributes: ["username"],
+            },
+            {
+                model: models.Comments,
+                attributes: ["id", "content", "createdAt"],
+                include: [
+                    {
+                        model: models.User,
+                        attributes: ["id", "username"],
+                    },
+                ],
             },
         ],
         order: [["createdAt", "DESC"]],

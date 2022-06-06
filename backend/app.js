@@ -17,6 +17,7 @@ const path = require("path");
 
 const usersRoutes = require("./routes/userRoute");
 const postsRoutes = require("./routes/postRoute");
+const commentsRoutes = require("./routes/commentRoute");
 
 app.use(express.json());
 
@@ -44,6 +45,9 @@ app.use("/api/auth", usersRoutes);
 
 //route pour la création, la modification et la suppression des posts (messages)
 app.use("/api/posts", postsRoutes);
+
+//route des commentaires
+app.use("/api/comments", commentsRoutes);
 
 //----------------------Exports---------------------------------
 module.exports = app;
