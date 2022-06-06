@@ -18,6 +18,7 @@ module.exports = {
                     },
                     key: "id",
                 },
+                onDelete: "CASCADE",
             },
             MessageId: {
                 allowNull: false,
@@ -29,8 +30,10 @@ module.exports = {
                     },
                     key: "id",
                 },
+                onDelete: "CASCADE",
             },
             content: {
+                allowNull: false,
                 type: Sequelize.TEXT,
             },
             createdAt: {

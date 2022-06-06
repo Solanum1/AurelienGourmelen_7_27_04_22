@@ -2,10 +2,10 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const models = require("../models/");
-const dotenv = require("dotenv").config();
 
 //----------------Logique métier--------------------------------
 
+//Fonction de création utilisateur
 exports.signup = (req, res, next) => {
     let emailReq = req.body.email;
     //méthode findOne/where de Sequelize
@@ -36,7 +36,7 @@ exports.signup = (req, res, next) => {
         });
 };
 
-//Fonction de login
+//Fonction de connexion utilisateur
 exports.login = (req, res, next) => {
     console.log(req.body);
     models.User.findOne({

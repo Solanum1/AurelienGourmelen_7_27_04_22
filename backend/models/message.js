@@ -15,7 +15,10 @@ module.exports = (sequelize, DataTypes) => {
                     allowNull: false,
                 },
             });
-            models.Message.hasMany(models.Comments);
+            models.Message.hasMany(models.Comments, {
+                onDelete: "CASCADE",
+                hooks: true,
+            });
         }
     }
     Message.init(
