@@ -1,5 +1,5 @@
 <div class="form-card">
-  <h2>Quoi de neuf aujourd'hui {{ username }} ?</h2>
+  <h2>Quoi de neuf aujourd'hui ?</h2>
   <!-- ReactiveFormsModule permet de lier un objet de type FormGroup à un form avec l'attribut formGroup -->
   <form [formGroup]="messageForm">
     <div class="form-group">
@@ -21,15 +21,20 @@
       <input id="attachment" type="text" formControlName="attachment" />
     </div>
     <div class="form-group form-button">
-      <button type="submit" (click)="onSubmitForm()">Publier</button>
+      <button
+        type="submit"
+        (click)="onSubmitForm()"
+        [disabled]="messageForm.invalid"
+      >
+        Publier
+      </button>
     </div>
   </form>
 </div>
 <div class="message-card" *ngIf="messagePreview$ | async as message">
   <h2>{{ message.title }}</h2>
   <p>
-    Mis en ligne {{ message.createdDate | date: "à HH:mm, le d MMMM yyyy" }} par
-    {{ username }}
+    Mis en ligne {{ message.createdDate | date: "à HH:mm, le d MMMM yyyy" }}
   </p>
   <p>{{ message.content }}</p>
   <img [src]="message.attachment" [alt]="message.title" />

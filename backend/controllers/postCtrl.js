@@ -27,7 +27,7 @@ exports.createPost = (req, res) => {
                     models.Message.create({
                         title: req.body.title,
                         content: req.body.content,
-                        attachment: attachment,
+                        attachment: req.body.attachment,
                         UserId: user.id,
                         likes: 0,
                     })

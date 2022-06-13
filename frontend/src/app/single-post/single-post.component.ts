@@ -15,7 +15,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SinglePostComponent implements OnInit {
   //propriété personnalisée
-  @Input() message!: MessageModel;
+  @Input() message!: Message;
 
   //nouvelle implémentation
   oneMessage$!: Observable<Message>;
@@ -29,13 +29,29 @@ export class SinglePostComponent implements OnInit {
               private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.buttonText= "Group'aimer";
+    this.buttonText= "J'aime";
     const messageId = +this.route.snapshot.params['id'];
     this.oneMessage$ = this.msg.getMessageById(messageId);
   }
 
+
+
+  //méthode like simplifiée
+  // onLike(messageId: number) {
+  //   if (this.buttonText === "J'aime") {
+  //     this.oneMessage$ = this.msg.likeMessageById(messageId, 'like').pipe(
+  //       tap(() => this.buttonText = "Je n'aime plus")
+  //     );
+  //     } else {
+  //       this.oneMessage$ = this.msg.likeMessageById(messageId, 'unlike').pipe(
+  //         tap(() => this.buttonText = "J'aime")
+  //     );
+  //   }
+  // }
+
+    //méthode like
   onLike(messageId: number) {
-    if (this.buttonText === "Group'aimer") {
+    if (this.buttonText === "J'aime") {
       this.msg.likeMessageById(messageId, 'like').pipe(
         tap(() => {
           this.oneMessage$ = this.msg.getMessageById(messageId);
@@ -46,7 +62,7 @@ export class SinglePostComponent implements OnInit {
         this.msg.likeMessageById(messageId, 'unlike').pipe(
           tap(() => {
           this.oneMessage$ = this.msg.getMessageById(messageId);
-          this.buttonText = "Group'aimer";
+          this.buttonText = "J'aime";
         })
       ).subscribe();
     }
