@@ -1,4 +1,5 @@
-<div class="message-card" *ngIf="oneMessage$ | async as message">
+<!-- *ngIf="oneMessage$ | async as message" -->
+<div class="message-card" *ngIf="message">
   <h2>{{ message.title }}</h2>
   <p>{{ message.content }}</p>
   <img [src]="message.attachment" [alt]="message.title" />

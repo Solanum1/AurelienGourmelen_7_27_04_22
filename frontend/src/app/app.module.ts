@@ -31,6 +31,7 @@ import { SinglePostComponent } from './single-post/single-post.component';
     AppRoutingModule,
     FormsModule, 
     ReactiveFormsModule,
+    //RegisterFormComponent,
     HttpClientModule,
     JwtModule.forRoot({
       config: {
@@ -44,7 +45,8 @@ import { SinglePostComponent } from './single-post/single-post.component';
     }),
   ],
   providers: [
-    //HttpInterceptorProviders
+    // HttpInterceptorProviders
+    //RegisterFormComponent
   ],
   bootstrap: [AppComponent]
 })

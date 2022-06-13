@@ -17,7 +17,7 @@ const postCtrl = require("../controllers/postCtrl");
 //--------------------------Routes--------------------------------
 
 //Route POST pour créer un message
-router.post("/create", auth, multer, postCtrl.createPost);
+router.post("/", auth, multer, postCtrl.createPost);
 
 //Route GET pour obtenir tous les messages
 router.get("/", auth, postCtrl.getAllPosts);
@@ -26,10 +26,10 @@ router.get("/", auth, postCtrl.getAllPosts);
 router.get("/:id", auth, postCtrl.getOnePost);
 
 //Route PUT pour modifier un message
-router.put("/update/:id", auth, postCtrl.updatePost);
+router.put("/:id", auth, postCtrl.updatePost);
 
 //Route DELETE pour supprimer un message
-router.delete("/delete/:id", auth, postCtrl.deletePost);
+router.delete("/:id", auth, postCtrl.deletePost);
 
 //--------------------------Exportation---------------------------
 //On exporte le router de ce fichier

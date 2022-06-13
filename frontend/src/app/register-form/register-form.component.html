@@ -1,26 +1,36 @@
 <div class="register-container">
-  <form class="form-bloc">
+  <form [formGroup]="signupForm" class="form-bloc">
     <h3><strong>Inscrivez</strong>-vous</h3>
     <div class="form-group">
       <label for="usernameInput">Nom d'utilisateur :</label>
       <input
         type="text"
         id="usernameInput"
-        [(ngModel)]="username"
-        [ngModelOptions]="{ standalone: true }"
+        formControlName="username"
         required
       />
     </div>
     <div class="form-group">
       <label for="emailInput">Email :</label>
-      <input type="email" id="emailInput" required />
+      <input type="email" id="emailInput" formControlName="email" required />
     </div>
     <div class="form-group">
       <label for="passwordInput">Mot de passe :</label>
-      <input name="passwordInput" type="password" id="passwordInput" required />
+      <input
+        name="passwordInput"
+        type="password"
+        formControlName="password"
+        id="passwordInput"
+        required
+      />
     </div>
     <div class="form-group">
-      <button type="submit" class="button-sub" (click)="test()">
+      <button
+        type="submit"
+        class="button-sub"
+        [disabled]="signupForm.invalid"
+        (click)="onSubmit()"
+      >
         S'enregistrer
       </button>
     </div>
