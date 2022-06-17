@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -7,10 +9,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  
-  constructor() { }
+  isAuth!: boolean;
+
+  constructor(
+              private router: Router,
+              private auth: AuthService
+              ) { }
+
+  onLogout() {
+    localStorage.removeItem('auth_tkn');
+    localStorage.removeItem('auth_meta');
+    this.router.navigateByUrl('');
+  }
   
   ngOnInit(): void {
+    let token = this.auth.getToken();
+    if (token == null) {
+      this.isAuth = false;
+    } else {
+      this.isAuth = true;
+    }
   }
   
   

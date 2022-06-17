@@ -1,14 +1,13 @@
 @import"./utils/mixin";
 
-header {
-    display: flex;
-    text-align: center;
+.logo {
     background-color: #fff;
     margin-bottom: 20px;
     padding: 0;
     border: 2px solid #eee;
-    height: 120px;
+    height: auto;
     p {
+        text-align: center;
         margin: auto;
     }
     img {
@@ -19,3 +18,30 @@ header {
         }
     }
 }
+
+.menu {
+    border-bottom: 2px solid #eee;
+    ul {
+        text-align: center;
+    }
+    li {
+        display: inline-block;
+        margin-left: 1.5em;
+        margin: 0.3em;
+    }
+    a {
+        text-decoration: none;
+        color: #fd2D01;
+        font-size: 1.1em;
+        margin: 1em;
+        padding-bottom: 0.2em;
+        cursor: pointer;
+    }
+    a:hover {
+        border-bottom: 1px solid #fd2D01;
+    }
+}
+
+
+
+

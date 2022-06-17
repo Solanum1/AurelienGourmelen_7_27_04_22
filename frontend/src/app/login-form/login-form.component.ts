@@ -27,12 +27,24 @@ export class LoginFormComponent implements OnInit {
     
   }
 
-  onLoginForm(form: NgForm): void {
-    console.log(form.value);
-    console.log(this.userForm);
-  }
+  // onLoginForm(form: NgForm): void {
+  //   console.log(form.value);
+  //   console.log(this.userForm);
+  //   this.errors = [];
+  //   this.auth.login(this.userForm)
+  //     .subscribe(
+  //       {
+  //         next: (token) => {
+  //           this.router.navigate(['/home'], {queryParams: {loggedin: 'success'} });
+  //         },
+  //         error: (errorResponse) => {
+  //           this.errors.push(errorResponse);
+  //         }
+  //     });
+  // }
 
   onLogin(): void {
+    
     this.errors = [];
     this.auth.login(this.userForm)
       .subscribe(

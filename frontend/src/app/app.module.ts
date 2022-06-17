@@ -40,9 +40,9 @@ import { SinglePostComponent } from './single-post/single-post.component';
         },
         throwNoTokenError: true,
         allowedDomains: ["localhost:3000"],
-        disallowedRoutes: ["http://localhost:3000/api/auth"],
-      },
-    }),
+        disallowedRoutes: ["http://localhost:3000/api/auth"]
+      }
+    })
   ],
   providers: [
     // HttpInterceptorProviders
