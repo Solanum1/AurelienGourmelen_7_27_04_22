@@ -1,8 +1,26 @@
 <header>
-  <p>
-    <img
-      src="../../assets/icon-left-font-resized.png"
-      alt="logo de groupomania"
-    />
-  </p>
+  <div class="logo">
+    <p>
+      <img
+        src="../../assets/icon-left-font-resized.png"
+        alt="logo de groupomania"
+      />
+    </p>
+  </div>
+  <nav class="menu">
+    <ul>
+      <li routerLinkActive="active" *ngIf="isAuth">
+        <a routerLink="/home">Accueil</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="!isAuth">
+        <a routerLink="/register">S'inscrire</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="!isAuth">
+        <a routerLink="/">Se connecter</a>
+      </li>
+      <li routerLinkActive="active" *ngIf="isAuth">
+        <a (click)="onLogout()">Se déconnecter</a>
+      </li>
+    </ul>
+  </nav>
 </header>
