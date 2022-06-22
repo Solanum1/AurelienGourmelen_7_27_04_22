@@ -1,31 +1,55 @@
-import { Component, OnInit } from '@angular/core';
-import { EmailValidator, NgForm } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+
+import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
+import { take } from 'rxjs';
+
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
 
-  userForm = {
-    email: '',
-    password: ''
-  }
+  // userForm = {
+  //   email: '',
+  //   password: ''
+  // }
   errors: any = [];
 
+  
+  loginForm = this.formBuilder.group({
+    loginEmail: ['', [Validators.required, Validators.email]],
+    loginPassword: ['', [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")]]
+  });
+  
+  
+  constructor(private auth: AuthService,
+    private router: Router, 
+    private formBuilder: FormBuilder) { }
 
-  constructor(private http: HttpClient,
-              private auth: AuthService,
-              private router: Router) { }
-
-  ngOnInit(): void {
+    onSubmit(): void {
+      const { loginEmail, loginPassword} = this.loginForm.value;
+      this.auth.login(loginEmail, loginPassword)
+      .pipe(take(1)).subscribe({
+        next: data => {
+          if (data.token){
+            window.localStorage.setItem('auth_tkn', data.token);
+            this.router.navigate(['/home'], {queryParams: {loggedin: 'success'} });
+          }
+        },
+        error: (errorResponse) => {
+          this.errors.push(errorResponse);
+        }
+      });
+    }
     
-  }
+    ngOnInit(): void {}
+
+
 
   // onLoginForm(form: NgForm): void {
   //   console.log(form.value);
@@ -43,19 +67,19 @@ export class LoginFormComponent implements OnInit {
   //     });
   // }
 
-  onLogin(): void {
+  // onLogin(): void {
     
-    this.errors = [];
-    this.auth.login(this.userForm)
-      .subscribe(
-        {
-          next: (token) => {
-            this.router.navigate(['/home'], {queryParams: {loggedin: 'success'} });
-          },
-          error: (errorResponse) => {
-            this.errors.push(errorResponse);
-          }
-      });
-    }
+  //   this.errors = [];
+  //   this.auth.login(this.userForm)
+  //     .subscribe(
+  //       {
+  //         next: (token) => {
+  //           this.router.navigate(['/home'], {queryParams: {loggedin: 'success'} });
+  //         },
+  //         error: (errorResponse) => {
+  //           this.errors.push(errorResponse);
+  //         }
+  //     });
+  //   }
   
 }

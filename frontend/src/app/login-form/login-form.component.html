@@ -1,6 +1,47 @@
+<!-- Méthode Reactive Forms -->
+
 <div class="login-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form-bloc"  >
+    <h3><strong>Connectez</strong>-vous</h3>
+
+    <div class="form-group">
+      <label for="emailInput">Email :</label>
+      <input
+        type="text"
+        formControlName="loginEmail"
+        id="emailInput"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="passwordInput">Mot de passe :</label>
+      <input
+        type="password"
+        formControlName="loginPassword"
+        id="passwordInput"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <button type="submit" class="button-sub">
+        Se connecter
+      </button>
+    </div>
+
+    <div class="form-group">
+      <p>Pas encore inscrit ? <a routerLink="register">Inscrivez-vous</a></p>
+    </div>
+  </form>
+</div>
+
+
+
+<!-- Méthode templates forms -->
+<!-- <div class="login-container">
   <form #loginForm="ngForm" class="form-bloc">
-    <!-- (ngSubmit)="onLoginForm(loginForm)" -->
+    (ngSubmit)="onLoginForm(loginForm)"
     <h3><strong>Connectez</strong>-vous</h3>
     <div class="form-group">
       <label for="emailInput">Email :</label>
@@ -31,4 +72,4 @@
       <p>Pas encore inscrit ? <a routerLink="register">Inscrivez-vous</a></p>
     </div>
   </form>
-</div>
+</div> -->
