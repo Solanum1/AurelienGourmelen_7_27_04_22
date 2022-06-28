@@ -18,6 +18,7 @@ const path = require("path");
 const usersRoutes = require("./routes/userRoute");
 const postsRoutes = require("./routes/postRoute");
 const commentsRoutes = require("./routes/commentRoute");
+const likesRoute = require("./routes/likeRoute")
 
 app.use(express.json());
 
@@ -48,6 +49,9 @@ app.use("/api/posts", postsRoutes);
 
 //route des commentaires
 app.use("/api/comments", commentsRoutes);
+
+//route des likes
+app.use("/api/post", likesRoute);
 
 //----------------------Exports---------------------------------
 module.exports = app;

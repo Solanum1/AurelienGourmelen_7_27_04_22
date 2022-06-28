@@ -1,8 +1,9 @@
 import { HttpClient } from "@angular/common/http";
 import { Message } from "../models/newMessage.model";
-import { Observable, switchMap } from "rxjs"
+import { Observable, switchMap, throwError } from "rxjs"
 import { Injectable } from "@angular/core";
-import { map } from "rxjs/operators"
+import { catchError, map, mapTo } from "rxjs/operators"
+import { AuthService } from './auth.service';
 
 const uripost = 'http://localhost:3000/api/posts';
 
@@ -12,7 +13,8 @@ const uripost = 'http://localhost:3000/api/posts';
 
 export class MessagesService {
 
-    constructor(private http: HttpClient){}
+    constructor(private http: HttpClient,
+                private auth: AuthService){}
 
     //Récupérer tous les messages
     getAllMessages(): Observable<Message[]> {
@@ -59,7 +61,7 @@ export class MessagesService {
                 ...message, 
                 likes: message.likes + (likeType === 'like' ? 1 : -1)
             })),
-            switchMap(updatedMessage => this.http.put<Message>(`http://localhost:3000/api/posts/${messageId}`, updatedMessage))
+            switchMap(updatedMessage => this.http.put<Message>(`http://localhost:3000/api/post/${messageId}/like`, updatedMessage))
         );
     }
 
