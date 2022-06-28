@@ -1,4 +1,6 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import * as fr from '@angular/common/locales/fr';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing-module';
@@ -14,6 +16,8 @@ import { HomeComponent } from './home/home.component';
 import { NewPostComponent } from './new-post/new-post.component';
 import { AllPostsComponent } from './all-posts/all-posts.component';
 import { SinglePostComponent } from './single-post/single-post.component';
+import { EditPostComponent } from './edit-post/edit-post.component';
+import { EditPostFormComponent } from './edit-post-form/edit-post-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,9 @@ import { SinglePostComponent } from './single-post/single-post.component';
     HomeComponent,
     NewPostComponent,
     AllPostsComponent,
-    SinglePostComponent
+    SinglePostComponent,
+    EditPostComponent,
+    EditPostFormComponent
   ],
   imports: [
     BrowserModule,
@@ -40,14 +46,19 @@ import { SinglePostComponent } from './single-post/single-post.component';
         },
         throwNoTokenError: true,
         allowedDomains: ["localhost:3000"],
-        disallowedRoutes: ["http://localhost:3000/api/auth"]
+        disallowedRoutes: ["http://localhost:3000/api/auth", "http://localhost:3000/api/auth/login", "http://localhost:3000/api/auth/signup"]
       }
     })
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'fr-FR'}
     // HttpInterceptorProviders
     //RegisterFormComponent
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor() {
+    registerLocaleData(fr.default);
+  }
+}

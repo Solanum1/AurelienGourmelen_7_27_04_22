@@ -1,10 +1,8 @@
 <div class="form-card">
-  <h2>Quoi de neuf aujourd'hui ?</h2>
-  <!-- ReactiveFormsModule permet de lier un objet de type FormGroup à un form avec l'attribut formGroup -->
+  <h2>Votre inspiration du moment {{username}} ?</h2>
   <form [formGroup]="messageForm">
     <div class="form-group">
       <label for="title">Titre</label>
-      <!-- formControlName prend comme valeur le nom créé avec FormBuilder, donc title ici-->
       <input id="title" type="text" formControlName="title" />
     </div>
     <div class="form-group">
@@ -32,9 +30,10 @@
   </form>
 </div>
 <div class="message-card" *ngIf="messagePreview$ | async as message">
+  <p>Prévisualisation de votre message :</p>
   <h2>{{ message.title }}</h2>
   <p>
-    Mis en ligne {{ message.createdDate | date: "à HH:mm, le d MMMM yyyy" }}
+    Mis en ligne {{ message.createdAt | date: "à HH:mm, le d MMMM yyyy" }}
   </p>
   <p>{{ message.content }}</p>
   <img [src]="message.attachment" [alt]="message.title" />

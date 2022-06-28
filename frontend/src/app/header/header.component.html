@@ -18,7 +18,8 @@
       <li routerLinkActive="active" *ngIf="!isAuth">
         <a routerLink="/">Se connecter</a>
       </li>
-      <li routerLinkActive="active" *ngIf="isAuth">
+      <li routerLinkActive="active" >
+      <!-- *ngIf="isAuth"> -->
         <a (click)="onLogout()">Se déconnecter</a>
       </li>
     </ul>

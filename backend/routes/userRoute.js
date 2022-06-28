@@ -18,11 +18,16 @@ const auth = require("../middleware/auth");
 
 //--------------------------Routes--------------------------------
 //Route POST pour enregistrement d'un nouvel utilisateur
-//router.post("/signup", email, password, userCtrl.signup);
 router.post("/signup", email, password, userCtrl.signup);
 
 //Route POST pour la connexion d'un utilisateur
 router.post("/login", userCtrl.login);
+
+router.get("/login", (req, res) => {
+    return res.status(200).json({
+        "test": "Ceci est un test"
+    })
+})
 
 //Route GET pour obtenir les informations du profil
 router.get("/profile/:id", auth, userCtrl.getUser);

@@ -21,16 +21,17 @@ export class NewPostComponent implements OnInit {
   //Observable pour aperçu du post
   messagePreview$!: Observable<Message>;
   urlRegex!: RegExp;
+  username!: string;
 
   //username!: string;
   //Injection de l'outil FormBuilder qui simplifie la génération des formulaires réactifs
   constructor(private formBuilder: FormBuilder,
-              private authServive: AuthService,
+              private authService: AuthService,
               private router: Router, 
               private messagesService: MessagesService) { }
 
   ngOnInit(): void {
-    //this.username = "Aurélien";
+    this.username = this.authService.getUsername();
     this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
 
     //Utilisation du FormBuilder pour construire le formulaire
@@ -51,9 +52,12 @@ export class NewPostComponent implements OnInit {
       }))
     );
   }
+
+
+
   //Méthode qui envoie le contenu du formulaire
   onSubmitForm() {
-    let userId = this.authServive.getUserId();
+    let userId = this.authService.getUserId();
     console.log(userId);
     
     if (userId) {

@@ -49,8 +49,9 @@ exports.createPost = (req, res) => {
 
 //Lecture d'un message
 exports.getOnePost = (req, res) => {
+    console.log(req.body.Message);
     models.Message.findOne({
-        where: { id: req.params.id },
+        where: { id: req.params.id},
         include: [
             {
                 model: models.User,
@@ -72,8 +73,9 @@ exports.getOnePost = (req, res) => {
         .then((message) => {
             if (!message) {
                 return res.status(400).json({ error: "Message non trouvé" });
+            } else {
+                res.status(200).json(message);
             }
-            res.status(200).json(message);
         })
         .catch((error) => {
             res.status(400).json({ error });

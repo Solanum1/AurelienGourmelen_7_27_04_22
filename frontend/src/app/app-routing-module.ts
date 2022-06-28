@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { EditPostComponent } from "./edit-post/edit-post.component";
 import { HomeComponent } from "./home/home.component";
 import { LoginFormComponent } from "./login-form/login-form.component";
 import { NewPostComponent } from "./new-post/new-post.component";
@@ -12,6 +13,7 @@ const routes: Routes = [
     { path: "", component: LoginFormComponent },
     { path: "home", component: HomeComponent },
     { path: "home/:id", component: SinglePostComponent},
+    { path: "edit/:id", component: EditPostComponent},
 ];
 
 @NgModule({
