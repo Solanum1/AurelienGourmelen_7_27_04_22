@@ -46,12 +46,22 @@ export class AuthService {
         return token2;
     }
 
+    //Pour obtenir l'username de l'utilisateur connecté
+    public getUsername() {
+        let jsonUsername = localStorage.getItem('auth_meta');
+        console.log(jsonUsername);
+        if(jsonUsername) {
+            return JSON.parse(jsonUsername).username;
+        }
+    }
+
     public getUserId(): number | null {
         let jsonString = localStorage.getItem('auth_meta');
         if(jsonString) {
-            return JSON.parse(jsonString).userId
+            return JSON.parse(jsonString).userId;
+        } else {
+            return null;
         }
-        return null
     }
 
     public logout() {

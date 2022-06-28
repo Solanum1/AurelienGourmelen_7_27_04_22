@@ -37,7 +37,10 @@ export class LoginFormComponent {
       .pipe(take(1)).subscribe({
         next: data => {
           if (data.token){
+            console.log(data);
             window.localStorage.setItem('auth_tkn', data.token);
+            const userInfo = data;
+            window.localStorage.setItem('auth_meta', JSON.stringify(userInfo));
             this.router.navigate(['/home'], {queryParams: {loggedin: 'success'} });
           }
         },

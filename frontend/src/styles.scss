@@ -1,8 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-
+@font-face {
+    font-family: Lato;
+    src: url(assets/font/Lato-Reg.ttf);
+}
 
 body {
-    font-family: Montserrat, sans-serif;
+    font-family: Lato, sans-serif;
     margin:0;
     padding:0;
 }

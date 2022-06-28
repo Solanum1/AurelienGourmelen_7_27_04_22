@@ -4,5 +4,5 @@ export class Message {
     content!: string;
     attachment!: string;
     likes!: number;
-    createdDate!: Date;
+    createdAt!: Date;
 }
