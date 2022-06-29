@@ -1,3 +1,5 @@
+import { User } from "./user.model";
+
 export class Message {
     id!: number;
     title!: string;
@@ -5,4 +7,5 @@ export class Message {
     attachment!: string;
     likes!: number;
     createdAt!: Date;
+    User!: User;
 }

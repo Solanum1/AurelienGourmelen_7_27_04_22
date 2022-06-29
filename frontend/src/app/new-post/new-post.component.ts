@@ -59,11 +59,10 @@ export class NewPostComponent implements OnInit {
   onSubmitForm() {
     let userId = this.authService.getUserId();
     console.log(userId);
-    
     if (userId) {
-      this.messagesService.addMessage(this.messageForm.value, userId).pipe(
-        tap(() => this.router.navigateByUrl('/home'))
-      ).subscribe();
+      this.messagesService.addMessage(this.messageForm.value, userId).subscribe(()=> {
+        window.location.reload();
+      });
     }
   }
 
