@@ -2,7 +2,7 @@
 <div class="message-card" *ngIf="message">
   <div class="message-card__header">
     <div class="message-card__left">
-      <p>Le mot de {{username}} :</p>
+      <p>Le mot de {{message.User.username}} :</p>
       <p class="date">Publié le {{message.createdAt | date: 'd MMMM YYYY, à HH:mm'}}</p>
     </div>
       <div class="message-card__edit">
