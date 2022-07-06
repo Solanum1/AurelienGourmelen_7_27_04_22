@@ -3,8 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { User } from '../models/user.model';
-import { first } from 'rxjs';
 
 @Component({
   selector: 'app-register-form',
@@ -25,8 +23,6 @@ export class RegisterFormComponent implements OnInit {
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private auth: AuthService,
-              //cette ligne génère un bug
-              //private userService: User
               ) {
   }
 
@@ -43,7 +39,6 @@ export class RegisterFormComponent implements OnInit {
     this.errors = [];
     console.log(this.signupForm.value);
     this.auth.register(this.signupForm.value).pipe(
-      //redirige vers page de connexion
       tap(() => this.router.navigateByUrl(''))
     )
     .subscribe();

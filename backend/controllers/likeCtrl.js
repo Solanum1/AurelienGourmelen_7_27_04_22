@@ -8,46 +8,49 @@ const models = require("../models/");
 //----------------Logique métier--------------------------------
 
 
-//Fonction d'ajout d'un like
-exports.addLike = async (req, res) => {
-    console.log(req.body.Message);
-    const postLiked = await models.Message.findOne({
-        where: { id: req.params.id}});
-    models.Message.update(
-        {
-            likes: postLiked + 1,
-        },
-        {
-            where: { id: req.params.id},
-        }
-    );
-    return res.status(201).json({ message: "Like ajouté" });
-}
+//Fonction pour ajouter d'un like
+
+exports.addLike = (req, res) => {
+    const like = {
+        MessageId: req.body.MessageId,
+        UserId: req.auth.userId,
+    };
+    models.Likes.create(like)
+    .then((data) => {
+        // res.send(data);
+        res.status(201).send({data, message: "Like ajouté"})
+    })
+    .catch((err) => {
+        res.status(500).send({
+            message: err.message || "Il n'est pas possible de liker ce message.",
+        });
+    });
+};
+
 
 //Fonction de suppression d'un like
-exports.removeLike = async (req, res) => {
-    const postUnliked = await models.Message.findOne({
-        where: { id: req.params.id}});
-    models.Message.update(
-        {
-            likes: postUnliked - 1,
-        },
-        {
-            where: { id: req.params.id},
-        }
-    );
-    return res.status(201).json({ message: "Like retiré" });
-}
+exports.deleteLike = (req, res) => {
+    models.Likes.findOne({ where: { UserId: req.auth.userId, MessageId: req.params.id } })
+    .then((like) => {
+        like
+        .destroy()
+        .then(() => res.status(200).json({ message: "Like retiré" }))
+        .catch((error) => {
+            res.status(404).json({ error });
+        });
+    })
+    .catch((error) => {
+        res.status(500).json({ error });
+    });
+};
 
 
 //Fonction pour obtenir le nombre de likes d'un message
 exports.getLike = async (req, res) => {
-    models.Message.findOne({
-        where: { id: req.params.id}
+    models.Likes.findAll({ where: { MessageId: req.params.id } })
+    .then((post) => {
+        res.status(200).json(post);
     })
-    .then((message) => {
-        res.status(200).json({"likes": message.likes});
-    })
-    .catch((error) => res.status(500).json({error}))
-}
+    .catch((error) => res.status(500).json({ error }));
+};
 

@@ -14,7 +14,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { JwtModule } from "@auth0/angular-jwt";
 import { HomeComponent } from './home/home.component';
 import { NewPostComponent } from './new-post/new-post.component';
-import { AllPostsComponent } from './all-posts/all-posts.component';
 import { SinglePostComponent } from './single-post/single-post.component';
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { EditPostFormComponent } from './edit-post-form/edit-post-form.component';
@@ -27,7 +26,6 @@ import { EditPostFormComponent } from './edit-post-form/edit-post-form.component
     LoginFormComponent,
     HomeComponent,
     NewPostComponent,
-    AllPostsComponent,
     SinglePostComponent,
     EditPostComponent,
     EditPostFormComponent

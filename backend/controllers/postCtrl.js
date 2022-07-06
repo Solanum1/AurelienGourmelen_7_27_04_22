@@ -67,6 +67,10 @@ exports.getOnePost = (req, res) => {
                     },
                 ],
             },
+            {
+                model: models.Likes,
+                attributes: ["userId", "messageId"]
+            }
         ],
         order: [["createdAt", "DESC"]],
     })
@@ -88,7 +92,7 @@ exports.getAllPosts = (req, res) => {
         include: [
             {
                 model: models.User,
-                attributes: ["username"],
+                attributes: ["username", "id"],
             },
             {
                 model: models.Comments,
@@ -100,6 +104,10 @@ exports.getAllPosts = (req, res) => {
                     },
                 ],
             },
+            {
+                model: models.Likes,
+                attributes: ["userId", "messageId"]
+            }
         ],
         order: [["createdAt", "DESC"]],
     })
@@ -107,55 +115,56 @@ exports.getAllPosts = (req, res) => {
         .catch((error) => res.status(500).json({ error }));
 };
 
-//Modification d'un message
-exports.updatePost = (req, res) => {
-    const id = req.params.id;
-    const data = req.file
-        ? {
-              title: req.body.title,
-              content: req.body.content,
-              userId: req.body.userId,
-              attachment: `${req.protocol}://${req.get("host")}/images/${
-                  req.file.filename
-              }`,
-          }
-        : {
-              title: req.body.title,
-              content: req.body.content,
-              userId: req.body.userId,
-          };
 
-    models.Message.findByPk(id).then((message) => {
-        const filename = message.attachment
-            ? {
-                  name: message.attachment.split("3000/")[1],
-              }
-            : {
-                  name: message.attachment,
-              };
-        fs.unlink(`images/${filename.name}`, () => {
-            models.Message.update(data, {
-                where: { id: id },
-            })
-                .then((num) => {
-                    if (num == 1) {
-                        res.send({
-                            message: "Le message a été mis à jour.",
-                        });
-                    } else {
-                        res.send({
-                            message:
-                                "Erreur lors de la mise à jour de ce message",
-                        });
-                    }
-                })
-                .catch(() => {
-                    res.status(500).send({
-                        message: "Impossible de mettre à jour ce message",
-                    });
+//Modification d'un message
+exports.updatePost = (req, res, next) => {
+    const id = req.params.id;
+    let imageFile = req.files ? req.files[0] : undefined;
+    console.log(`Mis à jour du post w/ ID = ${id}`);
+    let post = {...req.body, id: id };
+    console.log(JSON.stringify(imageFile));
+    if (imageFile) {
+        let hasPostImageUrl = post.image_url === null ? false : true;
+        if (hasPostImageUrl) {
+            let imageUrl = post.image_url.split("/images/")[1];
+
+            console.log(imageUrl);
+            fileSystem.unlink(`images/${imageUrl}`, () => {
+                console.log(
+                    "Ancienne image url: " + imageUrl + " supression réussie "
+                );
+            });
+        }
+        post = {
+            ...post,
+            image_url: imageFile ?
+                `${req.protocol}://${req.get("host")}/images/${imageFile.filename}` :
+                null,
+        };
+    }
+    console.log("POST = ", post);
+
+    models.Message.update(post, {
+            where: { id: id },
+        })
+        .then((numberReturned) => {
+            if (numberReturned == 1) {
+                res.status(200).send(post);
+            } else {
+                res.status(400).send({
+                    message: "Impossible de mettre à jour le message",
                 });
+            }
+        })
+        .catch((updatePostError) => {
+            console.log(
+                "Erreur lors de la mise à jour du titre ou de la description" +
+                updatePostError
+            );
+            res.status(500).send({
+                message: "Erreur de mise à jour du post avec cet id :" + id,
+            });
         });
-    });
 };
 
 //Suppression d'un message
@@ -167,11 +176,11 @@ exports.deletePost = (req, res) => {
             if (messageFound) {
                 models.User.findOne({
                     attributes: ["isAdmin"],
-                    where: { id: req.body.userId },
+                    where: { id: req.auth.userId },
                 })
                     .then((userIsAdmin) => {
                         if (
-                            req.body.userId == messageFound.UserId ||
+                            req.auth.userId == messageFound.UserId ||
                             userIsAdmin.dataValues.isAdmin == true
                         ) {
                             models.Message.findOne({

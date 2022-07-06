@@ -32,9 +32,6 @@
 <div class="message-card" *ngIf="messagePreview$ | async as message">
   <p>Prévisualisation de votre message :</p>
   <h2>{{ message.title }}</h2>
-  <p>
-    Mis en ligne {{ message.createdAt | date: "à HH:mm, le d MMMM yyyy" }}
-  </p>
   <p>{{ message.content }}</p>
   <img [src]="message.attachment" [alt]="message.title" />
 </div>

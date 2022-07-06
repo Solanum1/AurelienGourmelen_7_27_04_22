@@ -1,8 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Message } from "../models/newMessage.model";
-import { Observable, switchMap, throwError } from "rxjs"
+import { Observable } from "rxjs"
 import { Injectable } from "@angular/core";
-import { catchError, map, mapTo } from "rxjs/operators"
 import { AuthService } from './auth.service';
 
 const uripost = 'http://localhost:3000/api/posts';
@@ -16,55 +15,45 @@ export class MessagesService {
     constructor(private http: HttpClient,
                 private auth: AuthService){}
 
-    //Récupérer tous les messages
+    //Obtenir tous les messages
     getAllMessages(): Observable<Message[]> {
         return this.http.get<Message[]>(uripost);
     }
     
-    //Récupérer un message par son id
+    //Obtenir un message par son id
     getMessageById(messageId: number):Observable<Message>{
         return this.http.get<Message>(uripost + '/' + messageId);        
     }
 
-    //Méthode pour ajouter d'un message
+    //Ajouter un message
     addMessage(formValue: {title:string, content: string, attachment: string }, userId: number): Observable<Message> {
         return this.http.post<Message>(uripost, {
             ...formValue, UserId: userId
         });
     }
 
-    //Appel API pour modifier un message
-    editMessage(messageId: number, data: FormData):Observable<Message>{
-        return this.http.put<Message>(uripost + '/' + messageId, data);
+    //Modifier un message
+    editMessage(messageId: number, formValue: {title:string, content: string, attachment: string }):Observable<Message>{
+        return this.http.put<Message>(uripost + '/' + messageId, formValue);
     }
 
-    //Appel API pour supprimer un message
+    //Supprimer un message
     deleteMessage(messageId: number):Observable<Message>{
         return this.http.delete<Message>(uripost + '/' + messageId);
     }
 
-
-
-    //Méthode pour obtenir l'username de celui qui a posté le message
-    // getUsernameByMessage(messageId: number):Observable<Message>{
-    //     return this.getMessageById(messageId).pipe(
-    //         map ( username => ({
-    //             ...username
-    //         }))
-    //     )
-    // }
-
-    //Méthode pour la gestion des likes - Utilisation d'un literal type
-    likeMessageById(messageId: number, likeType: 'like' | 'unlike'): Observable<Message>{
-        return this.getMessageById(messageId).pipe(
-            map( message => ({
-                ...message, 
-                likes: message.likes + (likeType === 'like' ? 1 : -1)
-            })),
-            switchMap(updatedMessage => this.http.put<Message>(`http://localhost:3000/api/post/${messageId}/like`, updatedMessage))
-        );
+    //Gestion des likes
+    getLikes(messageId: number): Observable<Message>{
+        return this.http.get<Message>(`http://localhost:3000/api/post/${messageId}/like`);
     }
 
+    likeMessage(MessageId: number, UserId: number | null): Observable<Message>{
+        return this.http.post<Message>(`http://localhost:3000/api/post/${MessageId}/like`, {UserId, MessageId});
+    }
+
+    unLikeMessage(messageId: number): Observable<Message>{
+        return this.http.delete<Message>(`http://localhost:3000/api/post/${messageId}/like`);
+    }
 
 }
 

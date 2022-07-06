@@ -11,8 +11,7 @@ export class HeaderComponent implements OnInit {
 
   isAuth!: boolean;
 
-  constructor(
-              private router: Router,
+  constructor(private router: Router,
               private auth: AuthService
               ) { }
 
@@ -30,7 +29,5 @@ export class HeaderComponent implements OnInit {
       this.isAuth = true;
     }
   }
-  
-  
   
 }
