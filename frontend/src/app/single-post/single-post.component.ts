@@ -1,9 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MessageModel } from '../models/message.model';
 import { Message } from '../models/newMessage.model';
 import { MessagesService } from '../services/messages.service';
 import { Observable } from 'rxjs';
-import { map, tap, take, switchMap } from 'rxjs/operators';
+import { tap, take } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/user.model'
@@ -15,32 +14,30 @@ import { User } from '../models/user.model'
 })
 
 export class SinglePostComponent implements OnInit {
-  //propriétés personnalisées
   @Input() message!: Message;
   @Input() user!: User | null;
-  //
   oneMessage$!: Observable<Message>;
   username!: string;
   buttonText!: string;
-  // msgId!: number;
+  errorMessage!: string;
+  userId!: number | null;
+  messageId!: number;
+  likes!: number;
+  isUserAdmin!: boolean;
   
-  //injection du service pour liker un post
   constructor(private msg: MessagesService,
     private route: ActivatedRoute,
-    private authServive: AuthService,
+    private authService: AuthService,
     private router: Router) {}
     
     ngOnInit() {
-      //typecast pour changer un string en number
       const messageId = +this.route.snapshot.params['id'];
       this.oneMessage$ = this.msg.getMessageById(messageId);
-      //
-      this.username = this.authServive.getUsername();
+      this.username = this.authService.getUsername();
+      this.userId = this.authService.getUserId();
+      this.isUserAdmin = this.authService.isUserAdmin();
       this.buttonText= "J'aime";
-      // this.oneMessage$ = this.route.params.pipe(
-      //   map(params => params['id']),
-      //   switchMap(id => this.msg.getMessageById(id))
-      // );
+      
     }
     
     onClickPost(id: number) {
@@ -54,56 +51,43 @@ export class SinglePostComponent implements OnInit {
         tap(message => this.router.navigate([`/edit/${this.message.id}`]))
       ).subscribe();
     }
-              
-    
-    onDelete(){
-    //const messageId = this.route.snapshot.params['id'];
-    // const messageId = this.msg.getMessageById(this.message.id);
-    // console.log(messageId);
-    
-    // this.msg.deleteMessage().subscribe(
-    //   () => this.router.navigateByUrl('/home'),
-    //   error => {
-    //     if (error.status == 401) {
-    //       console.log('Vous ne pouvez pas supprimer ce message');
-          
-    //     }
-    //   });
-  }
-    
-    //méthode like simplifiée
-    // onLike(messageId: number) {
-    //   if (this.buttonText === "J'aime") {
-    //     this.oneMessage$ = this.msg.likeMessageById(messageId, 'like').pipe(
-    //       tap(() => this.buttonText = "Je n'aime plus")
-    //     );
-    //     } else {
-    //       this.oneMessage$ = this.msg.likeMessageById(messageId, 'unlike').pipe(
-    //         tap(() => this.buttonText = "J'aime")
-    //     );
-    //   }
-    // }
-              
-              
-              
-
-
-    //méthode like
-  onLike(messageId: number) {
-    if (this.buttonText === "J'aime") {
-      this.msg.likeMessageById(messageId, 'like').pipe(
-        tap(() => {
-          this.oneMessage$ = this.msg.getMessageById(messageId);
-          this.buttonText = "Je n'aime plus";
-        })
-        ).subscribe();
-      } else {
-        this.msg.likeMessageById(messageId, 'unlike').pipe(
-          tap(() => {
-          this.oneMessage$ = this.msg.getMessageById(messageId);
-          this.buttonText = "J'aime";
-        })
-      ).subscribe();
+      
+    onDelete(id: number){
+      console.log(id);
+      this.msg.deleteMessage(this.message.id).subscribe(()=> {
+        this.router.navigate(['/home']).then(() => {
+          window.location.reload()
+        });
+      });
     }
-  }
+    
+    onLike() {
+      const userId = this.authService.getUserId();
+      if(userId != null){
+        if(this.isAlreadyLike()) {
+          this.msg.unLikeMessage(this.message.id ).subscribe(
+            () => {
+              for (var i = 0; i<this.message.Likes.length; i++) {
+                if(this.message.Likes[i].userId === this.authService.getUserId()) {
+                  this.message.Likes.splice(i, 1);
+                }
+              }
+            }
+          );
+        } else {
+          this.msg.likeMessage(this.message.id, userId).subscribe(
+            () => {
+              this.message.Likes.push({ "userId": userId, "messageId": this.message.id})
+            }
+          );
+        }
+      }
+    }
+
+    isAlreadyLike():boolean {
+      return this.message.Likes.some(element => {
+        return (element.userId == this.authService.getUserId())
+      })
+    }
+
 }

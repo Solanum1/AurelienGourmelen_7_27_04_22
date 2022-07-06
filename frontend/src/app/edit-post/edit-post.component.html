@@ -1,9 +1,7 @@
-
-<!-- *ngIf="oneMessage$ | async as message" -->
 <div class="message-card" *ngIf="message$ | async as message">
     <div class="message-card__header">
         <div class="message-card__left">
-        <p class="date">Message de {{username}} du {{message.createdAt | date: 'd MMMM YYYY, à HH:mm'}}</p>
+        <p class="date">Message de {{message.User.username}} du {{message.createdAt | date: 'd MMMM YYYY, à HH:mm'}}</p>
         </div>
         <div class="message-card__edit">
             <a routerLink="/home">
@@ -13,7 +11,7 @@
     </div>
     <div class="message-card__body">
         <div class="title">
-            <h2>{{ message.title }}</h2>
+            <h2>{{ message.title | uppercase}}</h2>
         </div>  
         <p>{{ message.content }}</p>
         <img [src]="message.attachment" [alt]="message.title" />

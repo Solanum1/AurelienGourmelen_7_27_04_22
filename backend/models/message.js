@@ -16,7 +16,11 @@ module.exports = (sequelize, DataTypes) => {
                 },
             });
             models.Message.hasMany(models.Comments, {
-                onDelete: "CASCADE",
+                onDelete: "cascade",
+                hooks: true,
+            });
+            models.Message.hasMany(models.Likes, {
+                onDelete: "cascade",
                 hooks: true,
             });
         }
@@ -27,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
             title: DataTypes.STRING,
             attachment: DataTypes.STRING,
             content: DataTypes.STRING,
-            likes: DataTypes.INTEGER,
         },
         {
             sequelize,

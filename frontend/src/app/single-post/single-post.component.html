@@ -1,28 +1,28 @@
-<!-- *ngIf="oneMessage$ | async as message" -->
 <div class="message-card" *ngIf="message">
   <div class="message-card__header">
     <div class="message-card__left">
       <p>Le mot de {{message.User.username}} :</p>
+      <!-- <p>{{message.User.id}}</p> -->
       <p class="date">Publié le {{message.createdAt | date: 'd MMMM YYYY, à HH:mm'}}</p>
     </div>
       <div class="message-card__edit">
         <div>
-          <img src="../../assets/edit.png" (click)="onClickPost(message.id)" alt="modifier le message" title="modifier le message"/>
+          <img src="../../assets/edit.png" *ngIf="message.User.id === userId || isUserAdmin == true" (click)="onClickPost(message.id)" alt="modifier le message" title="modifier le message"/>
         </div>
         <div>
-          <img src="../../assets/trash.png" (click)="onDelete()"/>
+          <img src="../../assets/trash.png" *ngIf="message.User.id === userId || isUserAdmin == true" (click)="onDelete(message.id)"/>
         </div>
       </div>
   </div>
   <div class="message-card__body">
-    <h2>{{ message.title }}</h2>
+    <h2>{{ message.title | uppercase}}</h2>
     <p>{{ message.content }}</p>
     <img [src]="message.attachment" [alt]="message.title" />
   </div>
   <div class="message-card__likes">
     <p>
-      <button (click)="onLike(message.id)">{{ buttonText }}</button>
-      👍 {{ message.likes }}
+      <button (click)="onLike()">{{ isAlreadyLike() ? "Je n'aime plus" : "J'aime" }}</button>
+      👍 {{ message.Likes.length }}
     </p>
   </div>
 </div>

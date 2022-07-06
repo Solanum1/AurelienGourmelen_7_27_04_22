@@ -9,7 +9,6 @@ import { SinglePostComponent } from "./single-post/single-post.component";
 
 const routes: Routes = [
     { path: 'register', component: RegisterFormComponent },
-    //La route vide est associée à la page de connexion
     { path: "", component: LoginFormComponent },
     { path: "home", component: HomeComponent },
     { path: "home/:id", component: SinglePostComponent},

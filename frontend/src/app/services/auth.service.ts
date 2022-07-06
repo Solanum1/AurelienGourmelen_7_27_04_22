@@ -46,7 +46,6 @@ export class AuthService {
         return token2;
     }
 
-    //Pour obtenir l'username de l'utilisateur connecté
     public getUsername() {
         let jsonUsername = localStorage.getItem('auth_meta');
         console.log(jsonUsername);
@@ -64,22 +63,17 @@ export class AuthService {
         }
     }
 
+    public isUserAdmin(): boolean {
+        let jsonString = localStorage.getItem('auth_meta');
+        if(jsonString) {
+            return JSON.parse(jsonString).isAdmin;
+        } else {
+            return false;
+        }
+    }
+
     public logout() {
         localStorage.removeItem('auth_meta');
     }
-
-        // public login(userData: any): Observable<any> {
-    //     const URI = this.uriseg + '/login';
-
-    //     console.log(userData);
-    //     console.log(this.http);
-        
-    //     return this.http.post<any>(URI, userData)
-    //     .pipe(map(rep => {
-    //         console.log(rep);
-
-    //     return this.saveToken(rep);
-    // }));
-    // }
 
 }

@@ -6,8 +6,6 @@ import { map } from 'rxjs/operators';
 import { AuthService } from '../services/auth.service';
 import { MessagesService } from '../services/messages.service';
 import { Router } from '@angular/router';
-import { tap } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-new-post',
@@ -16,15 +14,12 @@ import { tap } from 'rxjs/operators';
 })
 export class NewPostComponent implements OnInit {
 
-  //Variable qui contient l'objet du formulaire, de type FormGroup.
   messageForm!: FormGroup;
-  //Observable pour aperçu du post
   messagePreview$!: Observable<Message>;
   urlRegex!: RegExp;
   username!: string;
 
-  //username!: string;
-  //Injection de l'outil FormBuilder qui simplifie la génération des formulaires réactifs
+  
   constructor(private formBuilder: FormBuilder,
               private authService: AuthService,
               private router: Router, 
@@ -34,7 +29,6 @@ export class NewPostComponent implements OnInit {
     this.username = this.authService.getUsername();
     this.urlRegex = /(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&/=]*)/;
 
-    //Utilisation du FormBuilder pour construire le formulaire
     this.messageForm = this.formBuilder.group({
       title: [null, Validators.required],
       content: [null, Validators.required],
@@ -44,7 +38,6 @@ export class NewPostComponent implements OnInit {
       updateOn: 'blur'
     });
 
-    //Initialisation de la prévisualisation
     this.messagePreview$ = this.messageForm.valueChanges.pipe(
       map(formValue => ({
         ...formValue,
@@ -53,9 +46,6 @@ export class NewPostComponent implements OnInit {
     );
   }
 
-
-
-  //Méthode qui envoie le contenu du formulaire
   onSubmitForm() {
     let userId = this.authService.getUserId();
     console.log(userId);

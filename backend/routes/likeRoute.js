@@ -20,7 +20,7 @@ router.get("/:id/like", auth, likeCtrl.getLike);
 router.post("/:id/like", auth, likeCtrl.addLike);
 
 //Route DELETE pour annuler le 'like' d'un message
-router.delete("/:id/like", auth, likeCtrl.removeLike);
+router.delete("/:id/like", auth, likeCtrl.deleteLike);
 
 //--------------------------Exportation---------------------------
 module.exports = router;
