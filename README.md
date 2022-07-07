@@ -7,13 +7,13 @@ AurelienGourmelen_7_27_04_22
 ## Lancer l'application
 
 - Cloner ce repo
-- Installer les dépendances Node (`https://nodejs.org/en/`)
+- Installer [Node](https://nodejs.org/en/)
 
 ### Backend
 
 - Dans un terminal se placer dans le dossier /backend
-- Supprimer l'extension .example du fichier et remplir vos informations de connexion à la base de données.
-- Executer la commande `npm install` pour installer les modules node.js
+- Supprimer l'extension .example du fichier .env.example et remplir vos informations de connexion à la base de données.
+- Exécuter la commande `npm install` pour installer les modules node.js
 - Lancer le serveur avec la commande `node server` ou `nodemon server` après installation de nodemon
 - Le serveur se lance sur `http://localhost:3000/`
 
