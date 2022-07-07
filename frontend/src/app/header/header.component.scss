@@ -1,10 +1,10 @@
-@import"./utils/mixin";
+@import"../utils/mixin";
 
 .logo {
-    background-color: #fff;
+    background-color: $color-white;
     margin-bottom: 20px;
     padding: 0;
-    border: 2px solid #eee;
+    border: 2px solid $color-grey;
     height: auto;
     p {
         text-align: center;
@@ -20,25 +20,25 @@
 }
 
 .menu {
-    border-bottom: 2px solid #eee;
+    border-bottom: 2px solid $color-grey;
     ul {
         text-align: center;
     }
     li {
         display: inline-block;
         margin-left: 1.5em;
-        margin: 0.3em;
+        margin: 0.3em 0.3em 0.8em 0.3em;
     }
     a {
         text-decoration: none;
-        color: #fd2D01;
-        font-size: 1.1em;
+        color: $color-primary;
+        font-size: 1.5em;
         margin: 1em;
         padding-bottom: 0.2em;
         cursor: pointer;
     }
     a:hover {
-        border-bottom: 1px solid #fd2D01;
+        border-bottom: 2px solid $color-primary;
     }
 }
 

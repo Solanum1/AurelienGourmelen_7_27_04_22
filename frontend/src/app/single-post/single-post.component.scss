@@ -1,11 +1,28 @@
+@import"../utils/mixin";
+
 .message-card {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    width: 40%;
-    margin: 20px auto;
+    margin: 20px auto 40px auto;
+    border-radius: 25px;
     padding: 10px 30px;
     box-shadow: lightgray 4px 4px 20px;
+    @include mobile-only {
+        width: 90%;
+    }
+    @include tablet-portrait-up {
+        width: 80%;
+    }
+    @include tablet-landscape-up {
+        width: 60%;
+    }
+    @include desktop-up {
+        width: 50%;
+    }
+    @include big-desktop-up {
+        width: 40%;
+    }
 }
 
 .message-card__header {
@@ -14,17 +31,49 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 10px;
-    
+    margin-bottom: 10px;
+    color: $color-tertiary;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $color-tertiary;
     p {
-        font-size: 22px;
+        font-size: 1.4em;
         font-weight: 600;
         padding: 0;
         margin: 3px 0;
-        
+        @include mobile-only {
+            font-size: 1em;
+        }
+        @include tablet-portrait-up {
+            font-size: 1em;
+        }
+        @include tablet-landscape-up {
+            font-size: 1.2em;
+        }
+        @include desktop-up {
+            font-size: 1.4em;
+        }
+        @include big-desktop-up {
+            font-size: 1.4em;
+        } 
     }
     .date {
-        font-size: 15px;
+        font-size: 0.9em;
         font-style: italic;
+        @include mobile-only {
+            font-size: 0.8em;
+        }
+        @include tablet-portrait-up {
+            font-size: 0.8em;
+        }
+        @include tablet-landscape-up {
+            font-size: 0.8em;
+        }
+        @include desktop-up {
+            font-size: 0.9em;
+        }
+        @include big-desktop-up {
+            font-size: 0.9em;
+        } 
     }
 }
 .message-card__edit {
@@ -46,15 +95,51 @@
 }
 
 .message-card__body {
+    color: $color-tertiary;
     img {
         width: 100%;
     }
     h2 {
-        margin-bottom: 0;
+        
+        text-align: center;
+        margin: 30px 0 0 0;
+        @include mobile-only {
+            font-size: 1.1em;
+        }
+        @include tablet-portrait-up {
+            font-size: 1.3em;
+        }
+        @include tablet-landscape-up {
+            font-size: 1.5em;
+        }
+        @include desktop-up {
+            font-size: 1.7em;
+        }
+        @include big-desktop-up {
+            font-size: 1.7em;
+        } 
     }
     p {
         font-weight: 300;
-        font-size: 16px;
+        font-size: 1.3em;
+        letter-spacing: 1.2px;
+        margin: 30px 0 40px 0;
+        text-align: center;
+        @include mobile-only {
+            font-size: 1em;
+        }
+        @include tablet-portrait-up {
+            font-size: 1.1em;
+        }
+        @include tablet-landscape-up {
+            font-size: 1.2em;
+        }
+        @include desktop-up {
+            font-size: 1.3em;
+        }
+        @include big-desktop-up {
+            font-size: 1.3em;
+        } 
     }
 }
 
@@ -63,22 +148,44 @@
     justify-content: right;
     margin-right: 20px;
     p {
-        font-size: x-large;
+        font-size: 1.8em;
+        color: $color-tertiary;
     }
     button {
-    background-color: transparent;
+    background-color: $color-white;
     box-sizing: border-box;
-    padding: 5px 10px;
-    border: none;
-    box-shadow: lightgray 3px 3px 7px;
+    padding: 7px 14px;
+    border: 2px solid $color-tertiary;
     margin-right: 20px;
-    outline: none;
-    font-size: 14px;
+    color: $color-tertiary;
     font-weight: 500;
-    &:active {
-        transform: translate(1px, 1px);
-        box-shadow: lightgray 0 0 5px;
+    transform: scale(1);
+    cursor: pointer;
+    @include mobile-only {
+        font-size: 0.6em;
     }
-
+    @include tablet-portrait-up {
+        font-size: 0.6em;
+    }
+    @include tablet-landscape-up {
+        font-size: 0.7em;
+    }
+    @include desktop-up {
+        font-size: 0.8em;
+    }
+    @include big-desktop-up {
+        font-size: 0.8em;
+    }
+    &:hover {
+        transform: scale(1.05);
+        box-shadow: 5px 5px 5px $color-grey;
+        background-color: lighten($color: $color-secondary, $amount: 5);
+        transition: all 300ms ease-in-out;
+    }
+    &:active {
+        transform: scale(0.95);
+        background-color: lighten($color: $color-primary, $amount: 30);
+        transition: all 200ms ease-in-out;
+    }
     }
 }
