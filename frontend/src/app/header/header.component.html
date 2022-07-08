@@ -19,7 +19,7 @@
         <a routerLink="/">Se connecter</a>
       </li>
       <li routerLinkActive="active" *ngIf="isAuth">
-        <a (click)="onLogout()">Se déconnecter</a>
+        <a (click)="onLogout()" (click)="reloadCurrentPage()">Se déconnecter</a>
       </li>
     </ul>
   </nav>

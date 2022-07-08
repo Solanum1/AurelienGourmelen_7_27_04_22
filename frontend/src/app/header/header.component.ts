@@ -11,6 +11,8 @@ export class HeaderComponent implements OnInit {
 
   isAuth!: boolean;
 
+  
+
   constructor(private router: Router,
               private auth: AuthService
               ) { }
@@ -18,7 +20,11 @@ export class HeaderComponent implements OnInit {
   onLogout() {
     localStorage.removeItem('auth_tkn');
     localStorage.removeItem('auth_meta');
-    this.router.navigateByUrl('');
+    this.router.navigate([`/`]);
+  }
+
+  reloadCurrentPage() {
+    window.location.reload();
   }
   
   ngOnInit(): void {
@@ -28,6 +34,9 @@ export class HeaderComponent implements OnInit {
     } else {
       this.isAuth = true;
     }
+    setTimeout(() => {this.ngOnInit()}, 1000 * 0.1);
   }
+
+
   
 }
