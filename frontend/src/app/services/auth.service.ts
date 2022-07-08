@@ -20,6 +20,7 @@ export class AuthService {
     constructor(private http: HttpClient,
                 private router: Router) 
                 {}
+
     
     public register(userData: any): Observable<any> {
         const URI = this.uriseg + '/signup';
