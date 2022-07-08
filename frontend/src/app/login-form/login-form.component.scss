@@ -1,3 +1,5 @@
+@import"../utils/mixin";
+
 .login-container{
     display: flex;
     justify-content: center;
@@ -5,7 +7,7 @@
     padding: 25px;
 }
 .form-bloc h3{
-    color: #666;
+    color: $color-tertiary;
     font-size: 28px;
     font-weight: 500;
     margin-bottom: 45px;
@@ -13,7 +15,7 @@
 }
 
 .form-bloc h3 strong {
-    color: #fd2d01;
+    color: $color-primary;
     font-weight: 900;
 }
 
@@ -22,7 +24,7 @@
 .form-bloc .form-group {
     position: relative;
     display: flex;
-    margin-bottom: 40px;
+    margin-bottom: 60px;
 }
 
 .form-bloc .form-group label {
@@ -30,9 +32,14 @@
     //top: 50%;
     left: 0px;
     transform: translateY(-50%);
-    color: #aaa;
+    color: $color-tertiary;
     font-size: 20px;
     transition: 0.4s ease-out;
+}
+
+.form-bloc .form-group p {
+    color: $color-tertiary;
+    font-size: 1.2em;
 }
 
 .form-bloc .form-group input {
@@ -42,8 +49,8 @@
     border: none;
     outline: none;
     background: none;
-    border-bottom: 3px solid #aaa;
-    color: #666;
+    border-bottom: 3px solid $color-tertiary;
+    color: $color-tertiary;
     font-size: 20px;
     transition: 0.4s ease-out;
 }
@@ -57,29 +64,33 @@
     display: block;
     width: auto;
     padding: 15px 60px;
-    border: 2px solid #fd2d01;
+    border: 2px solid $color-primary;
     border-radius: 999px;
-    //background-image: linear-gradient(to left, transparent 50%, #fd2d01 50%, #ffd7d7);
     background-size: 200%;
-    color: #fd2d01;
+    color: $color-primary;
     font-size: 24px;
     font-weight: 500;
     cursor: pointer;
 }
 
 .form-bloc .form-group .button-sub:hover {
-    color: #fff;
+    color: $color-white;
     background-position: 100%;
-    border: 2px solid #fff;
+    background-color: $color-tertiary;
+    border: 2px solid $color-white;
+}
+
+.form-bloc .form-group .button-sub:active {
+    background-color: $color-secondary;
 }
 
 .form-bloc .form-group:focus-within label,
 .form-bloc .form-group.animation label {
     top: 0px;
     transform: translateY(-100%);
-    color: #fd2d01;
+    color: $color-primary;
 }
 .form-bloc .form-group:focus-within input,
 .form-bloc .form-group.animation input {
-    border-bottom-color: #fd2d01;
+    border-bottom-color: $color-primary;
 }   
