@@ -14,14 +14,23 @@ export class LoginFormComponent {
 
   errors: any = [];
 
+
+  ngOnInit(): void {
+      
+  }
+
   loginForm = this.formBuilder.group({
     loginEmail: ['', [Validators.required, Validators.email]],
     loginPassword: ['', [Validators.required, Validators.pattern("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})")]]
   });
+
+
   
   constructor(private auth: AuthService,
     private router: Router, 
     private formBuilder: FormBuilder) { }
+
+    
 
     onSubmit(): void {
       const { loginEmail, loginPassword} = this.loginForm.value;
@@ -38,12 +47,17 @@ export class LoginFormComponent {
         },
         error: (errorResponse) => {
           this.errors.push(errorResponse);
+          console.log(errorResponse);
+          alert(errorResponse.error.error);
         }
       });
     }
-    
-    ngOnInit(): void {
+
+    get loginFormControls(): any {
+      return this.loginForm.controls;
       
     }
+    
+
 
 }
