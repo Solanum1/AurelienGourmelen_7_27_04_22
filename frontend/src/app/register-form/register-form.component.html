@@ -10,9 +10,19 @@
         required
       />
     </div>
+    <div class="alert" *ngIf="signupFormControls.username.invalid && (signupFormControls.username.dirty || signupFormControls.username.touched)">
+      <div *ngIf="signupFormControls.username.errors.required" class="alert">
+          Nom d'utilisateur requis
+      </div>
+    </div>
     <div class="form-group">
       <label for="emailInput">Email :</label>
       <input type="email" id="emailInput" formControlName="email" required />
+    </div>
+    <div class="alert" *ngIf="signupFormControls.email.invalid && (signupFormControls.email.dirty || signupFormControls.email.touched)">
+      <div *ngIf="signupFormControls.email.errors.required" class="alert">
+          Email requis
+      </div>
     </div>
     <div class="form-group">
       <label for="passwordInput">Mot de passe* :</label>
@@ -24,11 +34,15 @@
         required
       />
     </div>
+    <div class="alert" *ngIf="signupFormControls.password.invalid && (signupFormControls.password.dirty || signupFormControls.password.touched)">
+      <div *ngIf="signupFormControls.password.errors.required" class="alert">
+          Mot de passe requis
+      </div>
+    </div>
     <div class="form-group">
       <button
         type="submit"
         class="button-sub"
-        [disabled]="signupForm.invalid"
         (click)="onSubmit()"
       >
         S'enregistrer

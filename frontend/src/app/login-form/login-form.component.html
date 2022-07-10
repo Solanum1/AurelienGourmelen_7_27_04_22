@@ -11,6 +11,11 @@
         required
       />
     </div>
+    <div class="alert" *ngIf="loginFormControls.loginEmail.invalid && (loginFormControls.loginEmail.dirty || loginFormControls.loginEmail.touched)">
+      <div *ngIf="loginFormControls.loginEmail.errors.required" class="alert">
+          Email requis
+      </div>
+    </div>
 
     <div class="form-group">
       <label for="passwordInput">Mot de passe :</label>
@@ -20,6 +25,11 @@
         id="passwordInput"
         required
       />
+    </div>
+    <div class="alert" *ngIf="loginFormControls.loginPassword.invalid && (loginFormControls.loginPassword.dirty || loginFormControls.loginPassword.touched)">
+      <div *ngIf="loginFormControls.loginPassword.errors.required" class="alert">
+          Mot de passe requis
+      </div>
     </div>
 
     <div class="form-group">
